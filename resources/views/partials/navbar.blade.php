@@ -70,8 +70,8 @@
                 // STATE: SCROLLED (NAVBAR PUTIH)
                 // ============================================
 
-                // 1. Navbar: Putih, Shadow Tebal
-                navbar.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white shadow-[0_4px_20px_-5px_rgba(0,0,0,0.1)] ring-1 ring-black/5";
+                // 1. Navbar: Putih, Shadow Tebal dan Kontras
+                navbar.className = "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white shadow-lg ring-1 ring-black/5";
 
                 // 2. Logo Text: Ungu
                 if (logoText) {
@@ -154,5 +154,10 @@
 
     .hover\:bg-purple-800:hover {
         background-color: #6d28d9 !important;
+    }
+
+    /* Shadow yang lebih kontras untuk navbar scrolled */
+    #navbar.bg-white {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
     }
 </style>
