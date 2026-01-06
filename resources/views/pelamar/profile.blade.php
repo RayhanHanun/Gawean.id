@@ -90,12 +90,12 @@
                         </div>
                     @endif
 
-                    <div class="border-2 border-dashed border-gray-200 rounded-lg p-6 text-center hover:border-blue-300 transition-colors">
+                    <div class="border-2 border-dashed border-gray-200 rounded-lg p-6 text-center hover:border-purple-300 transition-colors">
                         <input type="file" id="cv_file" name="cv_file" accept=".pdf,.doc,.docx" class="hidden"
                                onchange="updateFileName(this)">
                         <label for="cv_file" class="cursor-pointer">
-                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mx-auto mb-3">
-                                <i class="fas fa-cloud-upload-alt text-blue-500 text-xl"></i>
+                            <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-cloud-upload-alt text-purple-500 text-xl"></i>
                             </div>
                             <p class="text-gray-600 font-medium" id="file-label">
                                 @if($profile && $profile->cv_file)

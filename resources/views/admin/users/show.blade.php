@@ -19,7 +19,7 @@
                         <div class="flex flex-wrap gap-3">
                             <span class="px-3 py-1 rounded-full text-xs font-semibold
                                 @if($user->role == 'admin') bg-red-100 text-red-700
-                                @elseif($user->role == 'hrd') bg-purple-100 text-purple-700
+                                @elseif($user->role == 'hrd') bg-blue-100 text-blue-700
                                 @else bg-green-100 text-green-700 @endif">
                                 {{ ucfirst($user->role) }}
                             </span>
@@ -60,7 +60,7 @@
 
             @if($user->role == 'hrd' && $user->company)
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <h3 class="font-semibold text-gray-800 mb-4"><i class="fas fa-building mr-2 text-blue-500"></i>Perusahaan</h3>
+                    <h3 class="font-semibold text-gray-800 mb-4"><i class="fas fa-building mr-2 text-purple-500"></i>Perusahaan</h3>
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <div>
@@ -86,7 +86,7 @@
 
             @if($user->role == 'pelamar' && $user->applications->count() > 0)
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <h3 class="font-semibold text-gray-800 mb-4"><i class="fas fa-file-alt mr-2 text-blue-500"></i>Riwayat Lamaran</h3>
+                    <h3 class="font-semibold text-gray-800 mb-4"><i class="fas fa-file-alt mr-2 text-purple-500"></i>Riwayat Lamaran</h3>
                     <div class="space-y-3">
                         @foreach($user->applications as $app)
                             <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">

@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Job Header -->
-    <section class="bg-white border-b border-gray-100">
+    <section class="bg-white border-b border-gray-100 mt-16">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col md:flex-row gap-6 items-start">
                 <div class="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center flex-shrink-0">

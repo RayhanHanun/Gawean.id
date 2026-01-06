@@ -75,14 +75,7 @@
         </div>
 
         <!-- Demo Accounts -->
-        <div class="mt-6 bg-blue-50 rounded-xl p-4">
-            <h4 class="font-semibold text-blue-800 mb-2"><i class="fas fa-info-circle mr-2"></i>Demo Accounts</h4>
-            <div class="text-sm text-blue-700 space-y-1">
-                <p><strong>Admin:</strong> admin@gawean.id / admin#Secure2025</p>
-                <p><strong>HRD:</strong> hrd@techcorp.com / Siti_TechCorp88</p>
-                <p><strong>Pelamar:</strong> andi@gmail.com / andi_loker123</p>
-            </div>
-        </div>
+
     </div>
 </div>
 @endsection

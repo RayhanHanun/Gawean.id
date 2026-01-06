@@ -52,7 +52,7 @@
         <!-- Category Statistics -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100">
             <div class="p-6 border-b border-gray-100">
-                <h2 class="text-lg font-semibold text-gray-800"><i class="fas fa-chart-pie text-purple-500 mr-2"></i>Statistik Kategori</h2>
+                <h2 class="text-lg font-semibold text-gray-800"><i class="fas fa-chart-pie text-blue-500 mr-2"></i>Statistik Kategori</h2>
             </div>
             <div class="p-6">
                 <div class="space-y-4">

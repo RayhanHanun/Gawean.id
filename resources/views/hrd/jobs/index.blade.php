@@ -82,7 +82,7 @@
                                 <i class="fas fa-briefcase text-gray-300 text-5xl mb-4"></i>
                                 <p class="text-gray-500 mb-2">Belum ada lowongan</p>
                                 @if($company->isApproved())
-                                    <a href="{{ route('hrd.jobs.create') }}" class="text-blue-500 hover:underline">
+                                    <a href="{{ route('hrd.jobs.create') }}" class="text-purple-500 hover:underline">
                                         Buat lowongan pertama Anda
                                     </a>
                                 @endif

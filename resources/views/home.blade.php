@@ -130,9 +130,7 @@
 
             </div>
         </div>
-
-        <!-- Straight Divider -->
-        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600/30 via-violet-600/50 to-indigo-600/30"></div>
+        
     </section>
 
     <!-- Statistics Section -->

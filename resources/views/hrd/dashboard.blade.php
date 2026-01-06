@@ -47,10 +47,10 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-500 text-sm">Total Pelamar</p>
-                    <p class="text-3xl font-bold text-purple-500">{{ $stats['total_applications'] }}</p>
+                    <p class="text-3xl font-bold text-blue-500">{{ $stats['total_applications'] }}</p>
                 </div>
-                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-users text-purple-500 text-xl"></i>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-users text-blue-500 text-xl"></i>
                 </div>
             </div>
         </div>
@@ -158,8 +158,8 @@
                         <span class="font-medium">Kelola Lowongan</span>
                     </a>
                     <a href="{{ route('hrd.applicants') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-colors">
-                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-user-friends text-purple-500"></i>
+                        <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-user-friends text-indigo-500"></i>
                         </div>
                         <span class="font-medium">Review Pelamar</span>
                     </a>

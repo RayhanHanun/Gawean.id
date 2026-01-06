@@ -20,7 +20,7 @@
             </a>
             <a href="{{ route('admin.users', ['role' => 'hrd']) }}"
                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors
-               {{ $role == 'hrd' ? 'bg-purple-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+               {{ $role == 'hrd' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
                 HRD
             </a>
             <a href="{{ route('admin.users', ['role' => 'admin']) }}"
@@ -64,7 +64,7 @@
                             <td class="px-6 py-4">
                                 <span class="px-3 py-1 rounded-full text-xs font-semibold
                                     @if($user->role == 'admin') bg-red-100 text-red-700
-                                    @elseif($user->role == 'hrd') bg-purple-100 text-purple-700
+                                    @elseif($user->role == 'hrd') bg-blue-100 text-blue-700
                                     @else bg-green-100 text-green-700 @endif">
                                     {{ ucfirst($user->role) }}
                                 </span>

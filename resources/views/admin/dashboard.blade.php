@@ -19,7 +19,7 @@
             </div>
             <div class="mt-3 text-sm text-gray-500">
                 <span class="text-green-500">{{ $stats['total_pelamar'] }}</span> pelamar,
-                <span class="text-purple-500">{{ $stats['total_hrd'] }}</span> HRD
+                <span class="text-blue-500">{{ $stats['total_hrd'] }}</span> HRD
             </div>
         </div>
 
@@ -29,8 +29,8 @@
                     <p class="text-gray-500 text-sm">Total Perusahaan</p>
                     <p class="text-3xl font-bold text-gray-800">{{ $stats['total_companies'] }}</p>
                 </div>
-                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-building text-purple-500 text-xl"></i>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-building text-blue-500 text-xl"></i>
                 </div>
             </div>
             <div class="mt-3 text-sm">
@@ -143,9 +143,9 @@
                         </div>
                         <span class="font-medium">Kelola Kategori</span>
                     </a>
-                    <a href="{{ route('admin.reports') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 text-gray-600 hover:text-purple-600 transition-colors">
-                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-chart-bar text-purple-500"></i>
+                    <a href="{{ route('admin.reports') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-colors">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-chart-bar text-blue-500"></i>
                         </div>
                         <span class="font-medium">Lihat Laporan</span>
                     </a>

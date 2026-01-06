@@ -95,9 +95,9 @@
             <h3 class="font-semibold text-gray-800 mb-6">Statistik Kategori</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 @foreach($categoryStats as $stat)
-                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-                        <p class="text-2xl font-bold text-blue-600">{{ $stat->jumlah_lowongan }}</p>
-                        <p class="text-sm text-blue-800">{{ $stat->kategori_pekerjaan }}</p>
+                    <div class="bg-gradient-to-br from-purple-50 to-indigo-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-bold text-purple-600">{{ $stat->jumlah_lowongan }}</p>
+                        <p class="text-sm text-purple-800">{{ $stat->kategori_pekerjaan }}</p>
                     </div>
                 @endforeach
             </div>

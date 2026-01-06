@@ -39,7 +39,7 @@
                                     <p class="text-sm font-medium text-gray-700">{{ auth()->user()->name }}</p>
                                     <p class="text-xs text-gray-500 capitalize">{{ auth()->user()->role }}</p>
                                 </div>
-                                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold">
                                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                                 </div>
                             </div>
