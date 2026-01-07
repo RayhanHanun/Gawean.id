@@ -5,11 +5,8 @@
 
 <aside class="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-100 shadow-sm z-50">
     <!-- Logo -->
-    <div class="flex items-center gap-2 px-6 py-5 border-b border-gray-100">
-        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-            <span class="text-white font-bold text-xl">G</span>
-        </div>
-        <span class="text-xl font-bold text-gray-800">Gawean<span class="text-blue-500">.id</span></span>
+    <div class="flex items-center px-6 py-5 border-b border-gray-100">
+        <span class="text-xl font-bold text-gray-800 ml-1">Gawean<span class="text-blue-500">.id</span></span>
     </div>
 
     <!-- Navigation -->

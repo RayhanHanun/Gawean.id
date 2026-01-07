@@ -4,9 +4,6 @@
             <!-- Brand -->
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center gap-2 mb-4">
-                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-xl">G</span>
-                    </div>
                     <span class="text-xl font-bold text-white">Gawean<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">.id</span></span>
                 </div>
                 <p class="text-gray-300 mb-4 max-w-md">

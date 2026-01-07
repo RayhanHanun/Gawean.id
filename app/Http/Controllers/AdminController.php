@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -87,6 +88,37 @@ class AdminController extends Controller
         return back()->with('success', "Perusahaan {$company->company_name} ditolak.");
     }
 
+    public function editCompany($id)
+    {
+        $company = Company::findOrFail($id);
+        return view('admin.companies.edit', compact('company'));
+    }
+
+    public function updateCompany(Request $request, $id)
+    {
+        $company = Company::findOrFail($id);
+
+        $validated = $request->validate([
+            'company_name' => 'required|string|max:150',
+            'address' => 'nullable|string|max:255',
+            'website' => 'nullable|string|max:150',
+            'description' => 'nullable|string',
+            'status_verifikasi' => 'required|in:pending,approved,rejected',
+        ]);
+
+        $company->update($validated);
+
+        return redirect()->route('admin.companies')->with('success', 'Data perusahaan berhasil diperbarui.');
+    }
+
+    public function destroyCompany($id)
+    {
+        $company = Company::findOrFail($id);
+        $company->delete();
+
+        return redirect()->route('admin.companies')->with('success', 'Perusahaan berhasil dihapus.');
+    }
+
     // User Management
     public function users(Request $request)
     {
@@ -107,6 +139,46 @@ class AdminController extends Controller
     {
         $user = User::with(['profile', 'company', 'applications.job'])->findOrFail($id);
         return view('admin.users.show', compact('user'));
+    }
+
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.users.edit', compact('user'));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|max:150|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8',
+        ]);
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return redirect()->route('admin.users')->with('success', 'Data pengguna berhasil diperbarui.');
+    }
+
+    public function destroyUser($id)
+    {
+        if (auth()->id() == $id) {
+            return back()->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
+        }
+
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('admin.users')->with('success', 'Pengguna berhasil dihapus.');
     }
 
     // Job Management

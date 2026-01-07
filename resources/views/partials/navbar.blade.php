@@ -30,9 +30,6 @@
         <div class="flex justify-between items-center h-16">
 
             <a href="{{ route('home') }}" class="flex items-center gap-2 group">
-                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <span class="text-white font-bold text-xl">G</span>
-                </div>
                 <span id="logo-text" class="text-xl font-bold transition-colors duration-300 {{ $isTransparentPage ? 'text-white' : 'text-purple-700' }}">
                     Gawean<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">.id</span>
                 </span>

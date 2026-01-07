@@ -73,10 +73,20 @@
                                 {{ $user->created_at ? $user->created_at->format('d M Y') : '-' }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('admin.users.show', $user->id) }}"
-                                   class="text-blue-500 hover:text-blue-600 text-sm font-medium">
-                                    Detail <i class="fas fa-chevron-right ml-1"></i>
-                                </a>
+                                <div class="flex items-center gap-3">
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"
+                                       class="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-sm transition">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus pengguna ini? Tindakan ini tidak dapat dibatalkan.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-sm transition">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty

@@ -79,7 +79,7 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4">
-                                <div class="flex items-center gap-2">
+                                <div class="flex flex-wrap items-center gap-2">
                                     @if($company->status_verifikasi == 'pending')
                                         <form action="{{ route('admin.companies.approve', $company->id) }}" method="POST" class="inline">
                                             @csrf
@@ -103,6 +103,19 @@
                                     @else
                                         <span class="text-gray-400 text-sm"><i class="fas fa-check-circle mr-1"></i>Verified</span>
                                     @endif
+
+                                    <a href="{{ route('admin.companies.edit', $company->id) }}"
+                                       class="inline-flex items-center justify-center w-8 h-8 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-500 transition-colors"
+                                       title="Edit">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <form action="{{ route('admin.companies.destroy', $company->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus perusahaan ini? Semua data terkait akan ikut terhapus.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="inline-flex items-center justify-center w-8 h-8 bg-red-50 hover:bg-red-100 rounded-lg text-red-500 transition-colors" title="Hapus">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

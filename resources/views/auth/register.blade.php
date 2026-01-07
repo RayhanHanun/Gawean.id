@@ -7,11 +7,6 @@
     <div class="w-full max-w-lg">
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div class="text-center mb-8">
-                <div class="inline-flex items-center gap-2 mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
-                        <span class="text-white font-bold text-2xl">G</span>
-                    </div>
-                </div>
                 <h1 class="text-2xl font-bold text-gray-900">Buat Akun Baru</h1>
                 <p class="text-gray-500 mt-2 text-sm">Mulai karir atau rekrutmen Anda bersama Gawean.id</p>
             </div>

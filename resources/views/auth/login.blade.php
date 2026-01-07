@@ -7,9 +7,6 @@
     <div class="w-full max-w-md">
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 shadow-lg shadow-purple-500/20">
-                    <span class="text-white font-bold text-2xl">G</span>
-                </div>
                 <h1 class="text-2xl font-bold text-gray-900">Selamat Datang</h1>
                 <p class="text-sm text-gray-500 mt-2">Masuk untuk melanjutkan aktivitas Anda</p>
             </div>

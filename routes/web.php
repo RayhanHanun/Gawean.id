@@ -100,10 +100,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/companies/pending', [AdminController::class, 'pendingCompanies'])->name('companies.pending');
     Route::post('/companies/{id}/approve', [AdminController::class, 'approveCompany'])->name('companies.approve');
     Route::post('/companies/{id}/reject', [AdminController::class, 'rejectCompany'])->name('companies.reject');
+    Route::get('/companies/{id}/edit', [AdminController::class, 'editCompany'])->name('companies.edit');
+    Route::put('/companies/{id}', [AdminController::class, 'updateCompany'])->name('companies.update');
+    Route::delete('/companies/{id}', [AdminController::class, 'destroyCompany'])->name('companies.destroy');
 
     // User Management
     Route::get('/users', [AdminController::class, 'users'])->name('users');
     Route::get('/users/{id}', [AdminController::class, 'showUser'])->name('users.show');
+    Route::get('/users/{id}/edit', [AdminController::class, 'editUser'])->name('users.edit');
+    Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('users.update');
+    Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])->name('users.destroy');
 
     // Job Management
     Route::get('/jobs', [AdminController::class, 'jobs'])->name('jobs');
