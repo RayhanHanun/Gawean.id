@@ -113,6 +113,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     // Job Management
     Route::get('/jobs', [AdminController::class, 'jobs'])->name('jobs');
+    Route::get('/jobs/{id}/edit', [AdminController::class, 'editJob'])->name('jobs.edit');
+    Route::put('/jobs/{id}', [AdminController::class, 'updateJob'])->name('jobs.update');
+    Route::delete('/jobs/{id}', [AdminController::class, 'destroyJob'])->name('jobs.destroy');
 
     // Category Management
     Route::get('/categories', [AdminController::class, 'categories'])->name('categories');

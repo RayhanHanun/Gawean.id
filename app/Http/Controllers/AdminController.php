@@ -197,6 +197,41 @@ class AdminController extends Controller
         return view('admin.jobs.index', compact('jobs', 'status'));
     }
 
+    public function editJob($id)
+    {
+        $job = Job::findOrFail($id);
+        $categories = Category::all();
+
+        return view('admin.jobs.edit', compact('job', 'categories'));
+    }
+
+    public function updateJob(Request $request, $id)
+    {
+        $job = Job::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'required|string',
+            'salary_range' => 'nullable|string|max:100',
+            'location' => 'required|string|max:255',
+            'deadline' => 'required|date|after_or_equal:today',
+            'status' => 'required|in:open,closed',
+        ]);
+
+        $job->update($validated);
+
+        return redirect()->route('admin.jobs')->with('success', 'Lowongan berhasil diperbarui.');
+    }
+
+    public function destroyJob($id)
+    {
+        $job = Job::findOrFail($id);
+        $job->delete();
+
+        return redirect()->route('admin.jobs')->with('success', 'Lowongan berhasil dihapus.');
+    }
+
     // Category Management
     public function categories()
     {

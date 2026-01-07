@@ -15,18 +15,37 @@ class PelamarController extends Controller
     {
         $user = auth()->user();
 
-        // Simplified for testing
+        // 1. Mengambil Statistik Lamaran secara Real-time
+        $query = Application::where('user_id', $user->id);
+
         $stats = [
-            'total_applications' => 0,
-            'pending' => 0,
-            'interview' => 0,
-            'accepted' => 0,
-            'rejected' => 0,
+            'total_applications' => (clone $query)->count(),
+            'pending'   => (clone $query)->where('status', 'pending')->count(),
+            'interview' => (clone $query)->where('status', 'interview')->count(),
+            'accepted'  => (clone $query)->where('status', 'accepted')->count(),
+            'rejected'  => (clone $query)->where('status', 'rejected')->count(),
         ];
 
-        $recentApplications = collect([]);
+        // 2. Mengambil 5 Riwayat Lamaran Terakhir
+        // Menggunakan eager loading 'with' agar query efisien (mencegah N+1 problem)
+        $recentApplications = Application::with(['job.company'])
+            ->where('user_id', $user->id)
+            ->orderBy('apply_date', 'desc')
+            ->take(5)
+            ->get();
+
+        // 3. Fitur Rekomendasi Lowongan
+        // Logika: Tampilkan lowongan aktif yang BELUM pernah dilamar oleh user ini
+        $appliedJobIds = Application::where('user_id', $user->id)->pluck('job_id');
+
+        $recommendedJobs = Job::active() // Menggunakan scopeActive yang sudah ada di Model Job
+            ->with('company')
+            ->whereNotIn('id', $appliedJobIds) // Filter job yang sudah dilamar
+            ->inRandomOrder() // Tampilkan secara acak agar variatif
+            ->take(3) // Batasi 3 rekomendasi
+            ->get();
+
         $profile = $user->profile;
-        $recommendedJobs = collect([]);
 
         return view('pelamar.dashboard', compact('stats', 'recentApplications', 'recommendedJobs', 'profile'));
     }

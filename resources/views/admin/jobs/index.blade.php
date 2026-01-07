@@ -42,6 +42,7 @@
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Pelamar</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Deadline</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
@@ -65,10 +66,29 @@
                                     {{ $job->status == 'open' ? 'Aktif' : 'Tutup' }}
                                 </span>
                             </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <a href="{{ route('admin.jobs.edit', $job->id) }}"
+                                       class="inline-flex items-center justify-center w-8 h-8 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+                                       title="Edit">
+                                        <i class="fas fa-pencil-alt text-sm"></i>
+                                    </a>
+                                    <form action="{{ route('admin.jobs.destroy', $job->id) }}" method="POST" class="inline"
+                                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus lowongan ini? Data yang terhapus tidak dapat dipulihkan.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="inline-flex items-center justify-center w-8 h-8 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+                                                title="Hapus">
+                                            <i class="fas fa-trash-alt text-sm"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-6 py-12 text-center">
+                            <td colspan="8" class="px-6 py-12 text-center">
                                 <i class="fas fa-briefcase text-gray-300 text-5xl mb-4"></i>
                                 <p class="text-gray-500">Tidak ada lowongan ditemukan</p>
                             </td>

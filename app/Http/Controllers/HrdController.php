@@ -15,16 +15,47 @@ class HrdController extends Controller
         $user = auth()->user();
         $company = $user->company;
 
-        // Simplified for testing - without heavy queries
+        // Cek jika user belum membuat profil perusahaan
+        if (!$company) {
+            return redirect()->route('hrd.company.create')
+                ->with('info', 'Silakan lengkapi profil perusahaan terlebih dahulu.');
+        }
+
+        // Ambil semua ID Job milik perusahaan ini untuk query pelamar
+        // Menggunakan pluck agar efisien
+        $jobIds = $company->jobs()->pluck('id');
+
+        // Hitung Statistik Real-time
         $stats = [
-            'total_jobs' => 0,
-            'active_jobs' => 0,
-            'total_applications' => 0,
-            'pending_applications' => 0,
+            // Menghitung semua lowongan milik perusahaan
+            'total_jobs' => $company->jobs()->count(),
+
+            // Menghitung lowongan yang statusnya 'open' DAN deadline belum lewat
+            // Menggunakan scopeActive() yang sudah ada di model Job.php
+            'active_jobs' => $company->jobs()->active()->count(),
+
+            // Menghitung total aplikasi masuk berdasarkan job_id milik perusahaan
+            'total_applications' => Application::whereIn('job_id', $jobIds)->count(),
+
+            // Menghitung aplikasi yang statusnya masih 'pending'
+            'pending_applications' => Application::whereIn('job_id', $jobIds)
+                ->where('status', 'pending')
+                ->count(),
         ];
 
-        $recentApplications = collect([]);
-        $jobs = collect([]);
+        // Ambil 5 Pelamar Terbaru
+        $recentApplications = Application::with(['user', 'job'])
+            ->whereIn('job_id', $jobIds)
+            ->orderBy('apply_date', 'desc')
+            ->take(5) // Batasi 5 saja agar dashboard tidak berat
+            ->get();
+
+        // Ambil daftar lowongan untuk ditampilkan di tabel/grid dashboard
+        $jobs = $company->jobs()
+            ->withCount('applications') // Menghitung jumlah pelamar per lowongan
+            ->orderBy('deadline', 'desc')
+            ->take(6) // Batasi 6 lowongan
+            ->get();
 
         return view('hrd.dashboard', compact('company', 'stats', 'recentApplications', 'jobs'));
     }
