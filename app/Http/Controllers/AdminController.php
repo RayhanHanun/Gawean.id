@@ -15,7 +15,6 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        // Get statistics
         $stats = [
             'total_users' => User::count(),
             'total_pelamar' => User::where('role', 'pelamar')->count(),
@@ -28,19 +27,16 @@ class AdminController extends Controller
             'total_applications' => Application::count(),
         ];
 
-        // Get pending companies
         $pendingCompanies = Company::where('status_verifikasi', 'pending')
             ->with('user')
             ->take(5)
             ->get();
 
-        // Get recent activities
         $recentApplications = Application::with(['job.company', 'user'])
             ->orderBy('apply_date', 'desc')
             ->take(10)
             ->get();
 
-        // Get company statistics - fallback to regular query if view not available
         try {
             $companyStats = DB::table('v_rekap_perusahaan')->get();
         } catch (\Exception $e) {
@@ -291,7 +287,6 @@ class AdminController extends Controller
     // Reports
     public function reports()
     {
-        // Fallback to regular queries if views not available
         try {
             $popularJobs = DB::table('v_loker_populer')->get();
         } catch (\Exception $e) {

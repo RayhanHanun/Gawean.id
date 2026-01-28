@@ -12,11 +12,12 @@ use App\Http\Controllers\AdminController;
 | Public Routes
 |--------------------------------------------------------------------------
 */
+
 Route::get('/test', function() {
     return 'Server berjalan';
 });
 
-// Route untuk serve CV files
+// Route untuk serve CV files (Akses publik agar HRD bisa download)
 Route::get('/storage/cv/{filename}', function ($filename) {
     $path = storage_path('app/public/cv/' . $filename);
 
@@ -129,4 +130,3 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     // Reports
     Route::get('/reports', [AdminController::class, 'reports'])->name('reports');
 });
-

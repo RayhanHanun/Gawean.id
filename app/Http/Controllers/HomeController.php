@@ -11,20 +11,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Get popular jobs from view v_loker_populer
         $popularJobs = DB::table('v_loker_populer')
             ->take(6)
             ->get();
 
-        // Get active jobs from view v_loker_aktif
         $activeJobs = DB::table('v_loker_aktif')
             ->take(8)
             ->get();
 
-        // Get category statistics from view v_statistik_kategori
         $categories = DB::table('v_statistik_kategori')->get();
 
-        // Get total statistics
         $stats = [
             'total_jobs' => Job::count(),
             'total_companies' => DB::table('companies')->where('status_verifikasi', 'approved')->count(),

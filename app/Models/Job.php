@@ -81,7 +81,6 @@ class Job extends Model
             ->where('deadline', '>=', now()->toDateString());
     }
 
-    // Helpers
     public function isOpen(): bool
     {
         return $this->status === 'open';

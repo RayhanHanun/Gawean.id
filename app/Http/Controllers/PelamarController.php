@@ -15,7 +15,6 @@ class PelamarController extends Controller
     {
         $user = auth()->user();
 
-        // 1. Mengambil Statistik Lamaran secara Real-time
         $query = Application::where('user_id', $user->id);
 
         $stats = [
@@ -26,23 +25,20 @@ class PelamarController extends Controller
             'rejected'  => (clone $query)->where('status', 'rejected')->count(),
         ];
 
-        // 2. Mengambil 5 Riwayat Lamaran Terakhir
-        // Menggunakan eager loading 'with' agar query efisien (mencegah N+1 problem)
+
         $recentApplications = Application::with(['job.company'])
             ->where('user_id', $user->id)
             ->orderBy('apply_date', 'desc')
             ->take(5)
             ->get();
 
-        // 3. Fitur Rekomendasi Lowongan
-        // Logika: Tampilkan lowongan aktif yang BELUM pernah dilamar oleh user ini
         $appliedJobIds = Application::where('user_id', $user->id)->pluck('job_id');
 
-        $recommendedJobs = Job::active() // Menggunakan scopeActive yang sudah ada di Model Job
+        $recommendedJobs = Job::active()
             ->with('company')
-            ->whereNotIn('id', $appliedJobIds) // Filter job yang sudah dilamar
-            ->inRandomOrder() // Tampilkan secara acak agar variatif
-            ->take(3) // Batasi 3 rekomendasi
+            ->whereNotIn('id', $appliedJobIds)
+            ->inRandomOrder()
+            ->take(3)
             ->get();
 
         $profile = $user->profile;
@@ -69,20 +65,16 @@ class PelamarController extends Controller
             'cv_file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        // Update user name
         $user->update(['name' => $request->name]);
 
-        // Update or create profile
         $profileData = [
             'phone_number' => $request->phone_number,
             'skills' => $request->skills,
         ];
 
-        // Handle CV upload
         if ($request->hasFile('cv_file')) {
             $file = $request->file('cv_file');
             $filename = 'cv_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-            // Ensure file is saved to the 'public' disk so it is accessible via /storage
             Storage::disk('public')->putFileAs('cv', $file, $filename);
             $profileData['cv_file'] = $filename;
         }
@@ -102,12 +94,10 @@ class PelamarController extends Controller
     {
         $user = auth()->user();
 
-        // Get applications with details
         $applications = DB::table('v_detail_lamaran')
             ->where('application_id', 'like', 'APP%')
             ->get();
 
-        // If view doesn't work, fallback to eloquent
         $applications = Application::with(['job.company', 'job.category'])
             ->where('user_id', $user->id)
             ->orderBy('apply_date', 'desc')
@@ -121,7 +111,6 @@ class PelamarController extends Controller
         $user = auth()->user();
         $job = Job::findOrFail($jobId);
 
-        // Check if already applied
         $existingApplication = Application::where('user_id', $user->id)
             ->where('job_id', $jobId)
             ->first();
@@ -130,17 +119,14 @@ class PelamarController extends Controller
             return back()->with('error', 'Anda sudah pernah melamar pekerjaan ini!');
         }
 
-        // Check if job is still open
         if (!$job->isOpen()) {
             return back()->with('error', 'Lowongan sudah ditutup.');
         }
 
-        // Check if job deadline has passed
         if ($job->isExpired()) {
             return back()->with('error', 'Deadline lamaran sudah berakhir.');
         }
 
-        // Check if user has complete profile
         if (!$user->profile || !$user->profile->cv_file) {
             return back()->with('error', 'Lengkapi profil dan upload CV terlebih dahulu.');
         }

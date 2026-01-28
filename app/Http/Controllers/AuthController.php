@@ -8,7 +8,6 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
@@ -24,36 +23,26 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Find user by email
-        $user = User::where('email', $credentials['email'])->first();
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
 
-        if (!$user) {
-            return back()->withErrors([
-                'email' => 'Email tidak ditemukan.',
-            ])->withInput();
+            $user = Auth::user();
+
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->role === 'hrd') {
+                return redirect()->route('hrd.dashboard');
+            } elseif ($user->role === 'pelamar') {
+                return redirect()->route('pelamar.dashboard');
+            } else {
+                return redirect()->route('home');
+            }
         }
 
-        // Check password (plain text comparison since existing data uses plain text)
-        if ($user->password !== $credentials['password']) {
-            return back()->withErrors([
-                'password' => 'Password salah.',
-            ])->withInput();
-        }
-
-        Auth::login($user, $request->boolean('remember'));
-
-        $request->session()->regenerate();
-
-        // Redirect based on role
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->role === 'hrd') {
-            return redirect()->route('hrd.dashboard');
-        } elseif ($user->role === 'pelamar') {
-            return redirect()->route('pelamar.dashboard');
-        } else {
-            return redirect()->route('home');
-        }
+        // Jika login gagal
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ])->withInput();
     }
 
     public function showRegister()
@@ -68,10 +57,8 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email|max:100',
             'password' => ['required', 'confirmed', 'min:6'],
             'role' => 'required|in:pelamar,hrd',
-            // HRD specific fields
             'company_name' => 'required_if:role,hrd|max:100',
             'company_address' => 'required_if:role,hrd',
-            // Pelamar specific fields
             'phone_number' => 'nullable|max:15',
         ]);
 
@@ -81,11 +68,10 @@ class AuthController extends Controller
             'id' => $userId,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password, // Store as plain text to match existing data
+            'password' => Hash::make($request->password), // SUDAH BENAR (Enkripsi)
             'role' => $request->role,
         ]);
 
-        // Create profile for pelamar
         if ($request->role === 'pelamar') {
             Profile::create([
                 'id' => Profile::generateId(),
@@ -94,15 +80,14 @@ class AuthController extends Controller
             ]);
         }
 
-        // Create company for HRD
         if ($request->role === 'hrd') {
             Company::create([
                 'id' => Company::generateId(),
                 'user_id' => $user->id,
                 'company_name' => $request->company_name,
                 'address' => $request->company_address,
-                'description' => $request->company_description,
-                'website' => $request->company_website,
+                'description' => $request->company_description ?? '-',
+                'website' => $request->company_website ?? '-',
                 'status_verifikasi' => 'pending',
             ]);
         }
@@ -119,7 +104,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
